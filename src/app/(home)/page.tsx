@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ConsultationForm from "@/components/ConsultationForm/ConsultationForm";
 import Faq, { type FaqItem } from "./Faq";
+import IndustryGrid, { type Industry } from "./IndustryGrid";
 import LazyVideo from "./LazyVideo";
 import RevealOnScroll from "./RevealOnScroll";
 import TechTiles from "./TechTiles";
@@ -10,12 +11,12 @@ import { ArrowIcon, CheckIcon } from "@/lib/icons";
 import { asset } from "@/lib/asset";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
-  title: { absolute: "Atlantech Global — Your AI-Ready Technology & Consulting Partner" },
-  description:
-    "Atlantech Global is a leading IT solutions company delivering AI & Automation, Digital Transformation, Product Engineering, Cloud, Data Analytics and Managed Services worldwide.",
-  alternates: { canonical: "/" },
-};
+// export const metadata: Metadata = {
+//   title: { absolute: "Atlantech Global — Your AI-Ready Technology & Consulting Partner" },
+//   description:
+//     "Atlantech Global is a leading IT solutions company delivering AI & Automation, Digital Transformation, Product Engineering, Cloud, Data Analytics and Managed Services worldwide.",
+//   alternates: { canonical: "/" },
+// };
 
 const clientLogoRows: string[][] = [
   [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13],
@@ -126,17 +127,19 @@ const technologies = [
   },
 ];
 
-const industries = [
-  { label: "Banking & Financial Services", image: "/images/industry-banking.webp", icon: "/images/banking.svg" },
+const industries: Industry[] = [
+
   { label: "Healthcare & Life Sciences", image: "/images/industry-healthcare.webp", icon: "/images/lifescience.svg" },
-  { label: "Retail & E-Commerce", image: "/images/industry-retail.webp", icon: "/images/e-com.svg" },
+  { label: "Education", image: "/images/industry-banking.webp", icon: "/images/banking.svg" },
   { label: "Manufacturing", image: "/images/industry-manufacturing.webp", icon: "/images/manufacturing.svg" },
-  { label: "Logistics & Supply Chain", image: "/images/industry-logistics.webp", icon: "/images/logistics.svg" },
-  { label: "Telecommunications", image: "/images/industry-telecom.webp", icon: "/images/telecommunications.svg" },
-  { label: "Education", image: "/images/atlantech-global-collaborating.webp", icon: "/images/inovation.svg" },
+  { label: "Retail & E-Commerce", image: "/images/industry-retail.webp", icon: "/images/e-com.svg" },
+  { label: "Hospitality", image: "/images/industry-logistics.webp", icon: "/images/logistics.svg" },
+ 
+  { label: "Real Estate", image: "/images/atlantech-global-collaborating.webp", icon: "/images/inovation.svg" },
+   { label: "Telecommunications", image: "/images/industry-telecom.webp", icon: "/images/telecommunications.svg" },
   { label: "Energy & Utilities", image: "/images/industry-energy.webp", icon: "/images/energy-utility.svg" },
-  { label: "Government & Public Sector", image: "/images/industry-government.webp", icon: "/images/gov-pub.svg" },
-  { label: "Technology & SaaS", image: "/images/engineer-working-on-laptop.webp", icon: "/images/digital-experience.svg" },
+  { label: "Logistics & Supply Chain", image: "/images/engineer-working-on-laptop.webp", icon: "/images/digital-experience.svg" },
+  { label: "Fintech", image: "/images/industry-government.webp", icon: "/images/gov-pub.svg" },
 ];
 
 const caseStudies = [
@@ -278,8 +281,9 @@ const highlightIcons = {
   ),
   trend: <path d="M3 17l6-6 4 4 8-8M15 7h6v6" />,
 };
-
+  
 export default function HomePage() {
+  
   return (
     <>
       <RevealOnScroll />
@@ -289,8 +293,8 @@ export default function HomePage() {
             <LazyVideo src={asset("/videos/hero.mp4")} className={styles.heroVideo} minWidth={768} />
             <div className={styles.heroOverlay} />
             <div className={styles.heroContent}>
-              <p className={styles.heroEyebrow}>Atlantech Global</p>
-              <h1 className={styles.heroTitle}>Your AI-Ready Technology &amp; Consulting Partner</h1>
+              {/* <p className={styles.heroEyebrow}>Atlantech Global</p>
+              <h1 className={styles.heroTitle}>Your AI-Ready Technology &amp; Consulting Partner</h1> */}
               <p className={styles.heroSub}>
                 Leading IT Solutions Company delivering AI, Digital Transformation, and Product
                 Engineering worldwide.
@@ -478,17 +482,7 @@ export default function HomePage() {
             organizations modernize operations, improve efficiency, accelerate innovation, and achieve
             sustainable digital transformation across global markets.
           </p>
-          <ul className={styles.industryGrid}>
-            {industries.map((ind, i) => (
-              <li className={`${styles.industryCard} ${styles.reveal}`} data-reveal style={{ "--d": `${(i % 5) * 90}ms` } as React.CSSProperties} key={ind.label}>
-                <img src={asset(ind.image)} alt="" width={400} height={420} loading="lazy" decoding="async" />
-                <span className={styles.industryBadge}>
-                  <img src={asset(ind.icon)} alt="" width={18} height={18} />
-                </span>
-                <h3>{ind.label}</h3>
-              </li>
-            ))}
-          </ul>
+          <IndustryGrid items={industries} />
         </div>
       </section>
 

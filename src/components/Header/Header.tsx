@@ -7,7 +7,7 @@ import { ArrowIcon, ChevronIcon, GlobeIcon } from "@/lib/icons";
 import { asset } from "@/lib/asset";
 import styles from "./Header.module.css";
 
-type MenuKey = "services" | "industries" | "whyUs" | "contact" | "work" | "insights" | "about";
+type MenuKey = "services" | "industries" | "whyUs"| "work" | "insights" | "about";
 
 type MenuLink = { title: string; desc?: string; href: string; icon?: string };
 
@@ -26,8 +26,8 @@ type NavItem = { label: string; href: string } | { label: string; menu: MenuKey 
 const NAV: NavItem[] = [
   { label: "Services", menu: "services" },
   { label: "Industries", menu: "industries" },
-  { label: "Why Us", menu: "whyUs" },
-  { label: "Contact Us", menu: "contact" },
+{ label: "Why Us", href: "/why-us" },
+  // { label: "Contact Us", menu: "contact" },
   { label: "Our Work", menu: "work" },
   { label: "Insights", menu: "insights" },
   { label: "About", menu: "about" },
@@ -85,11 +85,11 @@ const MENUS: Record<MenuKey, Menu> = {
     layout: "icons",
     links: [
       { title: "Healthcare", desc: "Patient-first digital platforms.", href: "/#industries", icon: "/images/lifescience.svg" },
-      { title: "Banking", desc: "Secure, scalable financial systems.", href: "/#industries", icon: "/images/banking.svg" },
+      { title: "Education", desc: "Digital learning platforms and campus systems.", href: "/#industries", icon: "/images/banking.svg" },
       { title: "Manufacturing", desc: "Smart factories and IoT.", href: "/#industries", icon: "/images/manufacturing.svg" },
       { title: "Retail", desc: "Unified commerce experiences.", href: "/#industries", icon: "/images/e-com.svg" },
-      { title: "Oil & Gas", desc: "Field-to-cloud operations.", href: "/#industries", icon: "/images/oil-gas.svg" },
-      { title: "Telecom", desc: "Next-gen network platforms.", href: "/#industries", icon: "/images/telecom.svg" },
+      { title: "Hospitality", desc: "Modern platforms for booking, guests, and operations.", href: "/#industries", icon: "/images/oil-gas.svg" },
+      { title: "Real Estate", desc: "Smart property management and virtual tour platforms", href: "/#industries", icon: "/images/telecom.svg" },
     ],
     aside: (
       <div className={styles.photo} style={bg("/images/trustedby.webp")}>
@@ -123,29 +123,8 @@ const MENUS: Record<MenuKey, Menu> = {
       </div>
     ),
   },
-  contact: {
-    eyebrow: "CONTACT US",
-    title: "Let's build the future together.",
-    desc: "Talk to our experts about your roadmap — every enquiry reaches a senior consultant within 24 hours.",
-    cta: { label: "Go to Contact page", href: "/contact" },
-    layout: "icons",
-    links: [
-      { title: "Send a Message", desc: "Tell us what you're building.", href: "/contact", icon: "/images/client.svg" },
-      { title: "Schedule a Consultation", desc: "Free digital audit included.", href: "/#contact", icon: "/images/success-stories.svg" },
-      { title: "India Office", desc: "+91 73871 40440", href: "/contact", icon: "/images/global-delivery.svg" },
-      { title: "Kuwait Office", desc: "+965 6685 8781", href: "/contact", icon: "/images/global-delivery.svg" },
-    ],
-    aside: (
-      <div className={styles.impact}>
-        <span>RESPONSE TIME</span>
-        <strong>24h</strong>
-        <small>Reply from a senior consultant</small>
-        <hr />
-        <strong>2</strong>
-        <small>Delivery hubs · India &amp; Kuwait</small>
-      </div>
-    ),
-  },
+  
+
   work: {
     eyebrow: "OUR WORK",
     title: "Proof, not promises.",
@@ -243,7 +222,7 @@ function isActive(item: NavItem, pathname: string): boolean {
   if ("href" in item) return item.href === pathname;
   const trimmed = pathname.replace(/\/$/, "");
   if (item.menu === "whyUs") return trimmed === "/why-us";
-  if (item.menu === "contact") return trimmed === "/contact";
+  // if (item.menu === "contact") return trimmed === "/contact";
   if (item.menu === "about") return trimmed === "/who-we-are";
   return false;
 }
@@ -308,6 +287,12 @@ export default function Header() {
       desktop.removeEventListener("change", onBreakpoint);
     };
   }, []);
+
+  useEffect(() => {
+  return () => {
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+  };
+}, []);
 
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? "hidden" : "";

@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-
 const basePath = "/agbeta";
 
 const nextConfig: NextConfig = {
