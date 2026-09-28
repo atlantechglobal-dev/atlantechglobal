@@ -49,7 +49,7 @@ export default function TechTiles({ columns }: { columns: Tech[][] }) {
                 onBlur={() => setHovered(null)}
                 onClick={() => setActive((cur) => (cur === item.title ? null : item.title))}
               >
-                <img src={asset(item.icon)} alt="" width={44} height={44} className={styles.techIcon} />
+                <img src={asset(item.icon)} alt="" width={44} height={44} className={styles.techIcon}  loading="lazy" decoding="async" />
                 <span>
                   <span className={styles.techItemTitle}>{item.title}</span>
                   <span className={styles.techItemDesc}>{item.desc}</span>

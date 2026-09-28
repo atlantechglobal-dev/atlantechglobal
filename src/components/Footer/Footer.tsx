@@ -11,8 +11,10 @@ const COLUMNS = [
       { label: "Cloud Engineering", href: "/#services" },
       { label: "AI & Automation", href: "/#services" },
       { label: "Data Engineering", href: "/#services" },
-      { label: "Product Engineering", href: "/#services" },
-      { label: "Managed Services", href: "/#services" },
+     { label: "Data Analytics", href: "/data-analytics" },
+   { label: "Managed Services", href: "/managed-services" },
+   
+
     ],
   },
   {
@@ -32,7 +34,7 @@ const COLUMNS = [
       { label: "Case Studies", href: "/#work" },
       { label: "Insights & Blog", href: "/#insights" },
       { label: "Success Stories", href: "/#work" },
-      { label: "FAQ", href: "/#faq" },
+      // { label: "FAQ", href: "/#faq" },
       { label: "Why Us", href: "/why-us" },
       { label: "Careers", href: "/contact" },
     ],

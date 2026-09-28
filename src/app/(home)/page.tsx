@@ -290,7 +290,8 @@ export default function HomePage() {
       <section className={styles.hero}>
         <div className="container">
           <div className={styles.heroStage}>
-            <LazyVideo src={asset("/videos/hero.mp4")} className={styles.heroVideo} minWidth={768} />
+            {/* minWidth={768} is kept for future if needed */}
+            <LazyVideo src={asset("/videos/hero.mp4")} className={styles.heroVideo}    />
             <div className={styles.heroOverlay} />
             <div className={styles.heroContent}>
               {/* <p className={styles.heroEyebrow}>Atlantech Global</p>
@@ -437,7 +438,8 @@ export default function HomePage() {
           </div>
 
           <div className={styles.ctaStrip}>
-            <LazyVideo src={asset("/videos/cta-network.mp4")} className={styles.ctaVideo} minWidth={768} />
+            {/* minWidth={768} for future to add in LazyVideo */}
+            <LazyVideo src={asset("/videos/cta-network.mp4")} className={styles.ctaVideo}  />
             <div className={styles.ctaOverlay} />
             <h2>
               Turn Technology Into <span className="text-purple-light">Your Competitive Advantage</span>

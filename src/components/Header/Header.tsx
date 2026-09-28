@@ -31,7 +31,7 @@ const NAV: NavItem[] = [
   { label: "Our Work", menu: "work" },
   { label: "Insights", menu: "insights" },
   { label: "About", menu: "about" },
-  { label: "FAQ", href: "/#faq" },
+  // { label: "FAQ", href: "/#faq" },
 ];
 
 function bg(path: string) {
@@ -46,12 +46,12 @@ const MENUS: Record<MenuKey, Menu> = {
     cta: { label: "Explore Services", href: "/#services" },
     layout: "icons",
     links: [
-      { title: "AI & Automation", desc: "Build intelligent business workflows.", href: "/#services", icon: "/images/ai-auto.svg" },
-      { title: "Product Engineering", desc: "Digital products from idea to launch.", href: "/#services", icon: "/images/automation.svg" },
-      { title: "Cloud Infrastructure", desc: "Cloud migration and DevOps.", href: "/#services", icon: "/images/badal.svg" },
-      { title: "Data Analytics", desc: "Turn enterprise data into insights.", href: "/#services", icon: "/images/data-analytics.svg" },
-      { title: "Managed Services", desc: "24x7 infrastructure management.", href: "/#services", icon: "/images/mana-services.svg" },
-      { title: "Digital Transformation", desc: "Enterprise modernization strategy.", href: "/#services", icon: "/images/inovation.svg" },
+      { title: "AI & Automation", desc: "Build intelligent business workflows.", href: "/ai-automation", icon: "/images/ai-auto.svg" },
+      { title: "Product Engineering", desc: "Digital products from idea to launch.", href: "/product-engineering", icon: "/images/automation.svg" },
+      { title: "Cloud Infrastructure", desc: "Cloud migration and DevOps.", href: "/cloud-infrastructure", icon: "/images/badal.svg" },
+     { title: "Data Analytics", desc: "Turn enterprise data into insights.", href: "/data-analytics", icon: "/images/data-analytics.svg" },
+      { title: "Managed Services", desc: "24x7 infrastructure management.", href: "/managed-services", icon: "/images/mana-services.svg" },
+      { title: "Digital Transformation", desc: "Enterprise modernization strategy.", href: "/digital-transformation", icon: "/images/inovation.svg" },
     ],
     aside: (
       <>
@@ -288,18 +288,19 @@ export default function Header() {
     };
   }, []);
 
-  useEffect(() => {
-  return () => {
-    if (hoverTimer.current) clearTimeout(hoverTimer.current);
-  };
-}, []);
-
+  
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [drawerOpen]);
+
+    useEffect(() => {
+  return () => {
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+  };
+}, []);
 
   const menu = activeMega ? MENUS[activeMega] : null;
 

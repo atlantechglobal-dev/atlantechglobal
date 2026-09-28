@@ -33,7 +33,7 @@ export default function Faq({ items }: { items: FaqItem[] }) {
                 className={styles.faqQuestion}
                 aria-expanded={isOpen}
                 aria-controls={`faq-answer-${i}`}
-                onClick={() => setOpen(isOpen ? null : i)}
+                onClick={() => setOpen((prev) => (prev === i ? null : i))}
               >
                 {item.q}
                 <svg viewBox="0 0 24 24" aria-hidden="true">
