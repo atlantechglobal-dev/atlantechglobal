@@ -3,6 +3,7 @@ import Link from "next/link";
 import { asset } from "@/lib/asset";
 import { ArrowIcon, CheckIcon } from "@/lib/icons";
 import AnalyticsFaq, { type AnalyticsFaqItem } from "./AnalyticsFaq";
+import CapabilityExplorer, { type Capability } from "./CapabilityExplorer";
 import ClientStories, { type Story } from "./ClientStories";
 import ContactPanel from "./ContactPanel";
 import styles from "./page.module.css";
@@ -60,6 +61,7 @@ const aicapabilities = [
   },
 ];
 
+
 const stats = [
   { num: "1.2 PB", label: "Pipelines Operated" },
   { num: "99.9%", label: "Pipeline Reliability" },
@@ -74,9 +76,12 @@ const telemetry = [
   { title: "Insights & Decisions", detail: "Real-Time Executive Dashboards" },
 ];
 
+// const capabilities: Capability[] = [
+//   {
 //     title: ["Data ", "Engineering"],
 //     tag: "Core",
 //     desc: "Design scalable data pipelines, modern architectures, and automated workflows that collect, integrate, and prepare high-quality data from multiple sources. Our data engineering services ensure reliable, secure, and real-time data availability for analytics and AI initiatives.",
+//     panel: {
 //       title: "Data Engineering Architecture",
 //       badge: "Production Ready",
 //       layers: [
@@ -90,8 +95,10 @@ const telemetry = [
 //     },
 //     href: "data-engineering"
 //   },
+//   {
 //     title: ["Analytics & ", "BI"],
 //     desc: "Turn complex datasets into interactive dashboards, reports, and predictive insights. Our business intelligence solutions empower decision-makers with real-time visibility, KPI tracking, self-service analytics, and data-driven strategies that accelerate business growth.",
+//     panel: {
 //       title: "BI & Analytics Architecture",
 //       badge: "Self-Service Ready",
 //       layers: [
@@ -104,8 +111,10 @@ const telemetry = [
 //     },
 //     href: "analytics-bi"
 //   },
+//   {
 //     title: ["Data ", "Governance"],
 //     desc: "Establish a trusted data ecosystem with standardized policies, metadata management, security controls, and compliance frameworks. We help improve data quality, consistency, accessibility, and regulatory compliance while enabling secure enterprise-wide data usage.",
+//     panel: {
 //       title: "Data Governance Framework",
 //       badge: "Audit Ready",
 //       layers: [
@@ -118,8 +127,10 @@ const telemetry = [
 //     },
 //     href: "data-governance"
 //   },
+//   {
 //     title: ["Modern ", "Data Stack"],
 //     desc: "Modernize your analytics platform with cloud-native data warehouses, lakehouses, ELT pipelines, orchestration, and scalable analytics tools. We build flexible, future-ready data ecosystems that support AI, advanced analytics, and enterprise-wide digital transformation.",
+//     panel: {
 //       title: "Modern Data Stack Blueprint",
 //       badge: "Cloud Native",
 //       layers: [
@@ -132,6 +143,7 @@ const telemetry = [
 //     },
 //     href: "modern-data-stack"
 //   },
+// ];
 
 const partnerPoints = [
   {
@@ -199,6 +211,7 @@ const industries = [
 
 const faqs: AnalyticsFaqItem[] = [
 
+
   {
     q: "What are Data Analytics Services?",
 
@@ -214,15 +227,15 @@ const faqs: AnalyticsFaqItem[] = [
       "Data Analytics Services enable businesses to make faster, data-driven decisions by transforming raw data into meaningful insights. They help identify trends, forecast demand, improve customer experiences, optimize operations, manage risks, and increase profitability. Organizations across industries use analytics to gain a competitive advantage and support long-term digital transformation.",
     ],
   },
-  {
-    q: "Your question here?",
-    a: [],
-    list: {
-      intro: "Lead-in line:",
-      items: ["Point one", "Point two", "Point three"],
-    },
-    outro: "Closing line after the bullets.",
-  },
+  // {
+  //   q: "Your question here?",
+  //   a: [],
+  //   list: {
+  //     intro: "Lead-in line:",
+  //     items: ["Point one", "Point two", "Point three"],
+  //   },
+  //   outro: "Closing line after the bullets.",
+  // },
 
   {
     q: "What is the difference between Data Analytics, Data Science, and Business Intelligence?",
@@ -386,6 +399,25 @@ export default function DataAnalyticsPage() {
       </section>
 
       {/* ---------- Capabilities ---------- */}
+      {/* <section className={`${styles.section} ${styles.tinted} ${styles.ruled}`} id="capabilities">
+        <div className="container">
+          <div className={styles.head}>
+            <h2 className={styles.title}>
+              Data Analytics Services to Turn Data into <span className={styles.gradText}>Actionable Insights</span>
+            </h2>
+            <p className={styles.body}>
+              Transform enterprise data into strategic business value with scalable analytics, AI-powered insights, and
+              modern data platforms that drive confident decision-making.
+            </p>
+          </div>
+          <CapabilityExplorer items={capabilities} />
+        </div>
+      </section> */}
+
+
+
+
+
 
       {/* ---------- AI Automation Core Capabilities ---------- */}
       <section className={styles.section} id="ai-capabilities">
@@ -425,6 +457,7 @@ export default function DataAnalyticsPage() {
                 </ul>
 
                 <p className={styles.aicapMetric}>
+                  {/* <strong>{c.metric.num}</strong> {c.metric.label} */}
                   <a
                     href={c.href}
                     className="btn btn-primary"
@@ -438,6 +471,8 @@ export default function DataAnalyticsPage() {
           </ul>
         </div>
       </section>
+
+
 
       {/* ---------- Dark CTA ---------- */}
       <section className={styles.darkCta}>

@@ -1,4 +1,0 @@
-User-Agent: *
-Allow: /
-
-Sitemap: https://projects.atlantechglobal.com/agbeta3/sitemap.xml

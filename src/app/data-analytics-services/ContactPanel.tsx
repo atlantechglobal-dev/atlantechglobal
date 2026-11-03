@@ -1,37 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import type { FieldSpec } from "@/lib/validation";
-import FieldError from "@/components/forms/FieldError";
-import HumanCheck from "@/components/forms/HumanCheck";
-import { useLeadForm } from "@/components/forms/useLeadForm";
+import { FormEvent, useState } from "react";
+import { submitLead } from "@/lib/submitLead";
 import styles from "./page.module.css";
 
 type Mode = "send" | "schedule";
-
-const BASE_SCHEMA: Record<string, FieldSpec> = {
-  first_name: { kind: "firstName", required: true },
-  last_name: { kind: "lastName", required: true },
-  email: { kind: "email", required: true },
-  company: { kind: "company", required: true },
-  message: { kind: "message", required: false },
-};
-
-const SCHEDULE_SCHEMA: Record<string, FieldSpec> = {
-  ...BASE_SCHEMA,
-  preferred_time: { kind: "preferredTime", required: true },
-};
+type Status = "idle" | "loading" | "success" | "error";
 
 export default function ContactPanel({ source }: { source: string }) {
   const [mode, setMode] = useState<Mode>("send");
-  const form = useLeadForm({
-    schema: mode === "schedule" ? SCHEDULE_SCHEMA : BASE_SCHEMA,
-    subject: () => `${mode === "send" ? "Consultation request" : "Call request"} — ${source}`,
-    source,
-  });
-  const { status, fieldProps, errorProps } = form;
+  const [status, setStatus] = useState<Status>("idle");
 
-  const submitLabel = mode === "send" ? "Request Consultation" : "Schedule Call";
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    setStatus("loading");
+    const subject = mode === "send" ? "Consultation request" : "Call request";
+    const ok = await submitLead(new FormData(form), `${subject} — ${source}`);
+    setStatus(ok ? "success" : "error");
+    if (ok) form.reset();
+  }
 
   return (
     <div className={styles.contactRight}>
@@ -44,35 +32,34 @@ export default function ContactPanel({ source }: { source: string }) {
         </button>
       </div>
 
-      <form className={styles.form} {...form.formProps}>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit}
+        method="POST"
+      >
         <input type="checkbox" name="botcheck" hidden tabIndex={-1} autoComplete="off" />
         <div className={styles.fieldRow}>
           <label className={styles.field}>
             First name
-            <input type="text" name="first_name" placeholder="Sarah" autoComplete="given-name" maxLength={50} required {...fieldProps("first_name")} />
-            <FieldError {...errorProps("first_name")} />
+            <input type="text" name="first_name" placeholder="Sarah" autoComplete="given-name" required />
           </label>
           <label className={styles.field}>
             Last name
-            <input type="text" name="last_name" placeholder="Jenkins" autoComplete="family-name" maxLength={50} required {...fieldProps("last_name")} />
-            <FieldError {...errorProps("last_name")} />
+            <input type="text" name="last_name" placeholder="Jenkins" autoComplete="family-name" required />
           </label>
         </div>
         <label className={styles.field}>
           Work email
-          <input type="email" name="email" placeholder="sarah.jenkins@enterprise.com" autoComplete="email" maxLength={254} required {...fieldProps("email")} />
-          <FieldError {...errorProps("email")} />
+          <input type="email" name="email" placeholder="sarah.jenkins@enterprise.com" autoComplete="email" required />
         </label>
         <label className={styles.field}>
           Company name
-          <input type="text" name="company" placeholder="Global Logistics Corp" autoComplete="organization" maxLength={100} required {...fieldProps("company")} />
-          <FieldError {...errorProps("company")} />
+          <input type="text" name="company" placeholder="Global Logistics Corp" autoComplete="organization" required />
         </label>
         {mode === "schedule" && (
           <label className={styles.field}>
             Preferred date &amp; time
-            <input type="datetime-local" name="preferred_time" required {...fieldProps("preferred_time")} />
-            <FieldError {...errorProps("preferred_time")} />
+            <input type="datetime-local" name="preferred_time" required />
           </label>
         )}
         <label className={styles.field}>
@@ -80,15 +67,11 @@ export default function ContactPanel({ source }: { source: string }) {
           <textarea
             name="message"
             rows={3}
-            maxLength={2000}
             placeholder="Tell us about your current data pipeline challenges or objectives..."
-            {...fieldProps("message")}
           />
-          <FieldError {...errorProps("message")} />
         </label>
-        <HumanCheck checked={form.human} onChange={form.changeHuman} {...errorProps("human")} />
         <button type="submit" className={styles.submitBtn} disabled={status === "loading"}>
-          {status === "loading" ? "Sending..." : submitLabel}
+          {status === "loading" ? "Sending..." : mode === "send" ? "Request Consultation" : "Schedule Call"}
         </button>
         {status === "success" && (
           <p className="form-status success" role="status">

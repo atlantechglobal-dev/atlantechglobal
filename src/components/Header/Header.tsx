@@ -50,7 +50,7 @@ const MENUS: Record<MenuKey, Menu> = {
       { title: "AI & Automation", desc: "Build intelligent business workflows.", href: "/ai-automation-services", icon: "/images/ai-auto.svg" },
       { title: "Product Engineering", desc: "Digital products from idea to launch.", href: "/product-engineering-services", icon: "/images/automation.svg" },
       { title: "Digital Transformation", desc: "Enterprise modernization strategy.", href: "/digital-transformation-services", icon: "/images/inovation.svg" },
-      { title: "Cloud Infrastructure", desc: "Cloud migration and DevOps.", href: "/cloud-infrastructure-services", icon: "/images/badal.svg" },
+      { title: "Cloud & Infrastructure", desc: "Cloud migration and DevOps.", href: "/cloud-infrastructure-services", icon: "/images/badal.svg" },
       { title: "Data Analytics", desc: "Turn enterprise data into insights.", href: "/data-analytics-services", icon: "/images/data-analytics.svg" },
       { title: "Managed Services", desc: "24x7 infrastructure management.", href: "/managed-services", icon: "/images/mana-services.svg" },
 

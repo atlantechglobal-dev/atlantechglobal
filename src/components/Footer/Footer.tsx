@@ -7,8 +7,8 @@ const COLUMNS = [
   {
     title: "Capabilities",
     links: [
-      { label: "Digital Transformation", href: "digital-transformation-services" },
-      { label: "Cloud Engineering", href: "/cloud-engineering" },
+      { label: "Digital Transformation", href: "/digital-transformation-services" },
+      { label: "Cloud & Infrastructure", href: "/cloud-infrastructure-services" },
       { label: "AI & Automation", href: "/ai-automation-services" },
       { label: "Product Engineering", href: "/product-engineering-services" },
       { label: "Data Analytics", href: "/data-analytics-services" },

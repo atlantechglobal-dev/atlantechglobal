@@ -194,7 +194,7 @@ export default function DigitalExperienceCommercePage() {
 
                             <div className={styles.heroArt}>
                                 <div className={styles.heroArtCard}>
-                                    <img loading="lazy"
+                                    <img
                                         className={styles.heroImg}
                                         src={asset(HERO_IMAGE)}
                                         alt="Connected digital experience and commerce platform"

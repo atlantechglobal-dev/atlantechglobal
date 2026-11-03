@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 /** Where the "Data Analytics Services" breadcrumb links. Change if your parent page lives elsewhere. */
 const PARENT_HREF = "/data-analytics-services";
 /** Hero image in /public/images. */
-const HERO_IMAGE = "/images/digital-growth.jpg";
+const HERO_IMAGE = "/images/prodengineering.webp"
 
 /* ---- path helpers: every icon is one stroke path on a 24×24 grid ---- */
 const c = (x: number, y: number, r: number) => `M${x - r} ${y}a${r} ${r} 0 1 0 ${2 * r} 0a${r} ${r} 0 1 0 ${-2 * r} 0`;
@@ -54,6 +54,8 @@ function Ic({ name }: { name: IconName }) {
         </svg>
     );
 }
+
+const pad = (n: number) => String(n).padStart(2, "0");
 
 const visibility: { icon: IconName; text: string }[] = [
     { icon: "trend", text: "Track key performance indicators." },

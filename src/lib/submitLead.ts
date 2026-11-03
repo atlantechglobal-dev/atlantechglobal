@@ -32,7 +32,61 @@ function toWeb3Forms(payload: LeadPayload): Record<string, string> {
 }
 
 /** Sends a validated lead. Resolves true only when it was accepted. */
-export async function submitLead(payload: LeadPayload): Promise<boolean> {
+// export async function submitLead(p0: FormData, p1: string, payload: LeadPayload): Promise<boolean> {
+//   const direct = Boolean(PUBLIC_ACCESS_KEY);
+//   try {
+//     const response = await fetch(direct ? WEB3FORMS_URL : LEAD_ENDPOINT, {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json", Accept: "application/json" },
+//       body: JSON.stringify(direct ? toWeb3Forms(payload) : payload),
+//     });
+//     const result = (await response.json()) as { success?: boolean };
+//     return response.ok && Boolean(result.success);
+//   } catch {
+//     return false;
+//   }
+// }
+
+/** Sends a validated lead. Resolves true only when it was accepted. */
+// export async function submitLead(data: FormData, subject?: string): Promise<boolean> {
+//   const payload: LeadPayload = {};
+
+//   data.forEach((value, key) => {
+//     if (typeof value === "string") payload[key] = value;
+//   });
+
+//   if (subject) payload.subject = subject;
+
+//   const direct = Boolean(PUBLIC_ACCESS_KEY);
+//   try {
+//     const response = await fetch(direct ? WEB3FORMS_URL : LEAD_ENDPOINT, {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json", Accept: "application/json" },
+//       body: JSON.stringify(direct ? toWeb3Forms(payload) : payload),
+//     });
+//     const result = (await response.json()) as { success?: boolean };
+//     return response.ok && Boolean(result.success);
+//   } catch {
+//     return false;
+//   }
+// }
+
+export async function submitLead(
+  input: FormData | LeadPayload,
+  subject?: string,
+): Promise<boolean> {
+  const payload: LeadPayload = {};
+
+  if (input instanceof FormData) {
+    input.forEach((value, key) => {
+      if (typeof value === "string") payload[key] = value;
+    });
+  } else {
+    Object.assign(payload, input);
+  }
+
+  if (subject) payload.subject = subject;
+
   const direct = Boolean(PUBLIC_ACCESS_KEY);
   try {
     const response = await fetch(direct ? WEB3FORMS_URL : LEAD_ENDPOINT, {
