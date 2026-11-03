@@ -21,12 +21,13 @@ const COLUMNS = [
   {
     title: "Industries",
     links: [
-      { label: "Financial Services", href: "/#industries" },
-      { label: "Healthcare", href: "/#industries" },
-      { label: "Retail & E-commerce", href: "/#industries" },
-      { label: "Manufacturing", href: "/#industries" },
-      { label: "Logistics", href: "/#industries" },
-      { label: "Education", href: "/#industries" },
+    
+      { label: "Healthcare", href: "/industries" },
+      { label: "Education", href: "/industries" },
+      { label: "Manufacturing", href: "/industries" },
+      { label: "Retail", href: "/industries" },
+      { label: "Hospitality", href: "/industries" },
+      { label: "Real Estate", href: "/industries" },
     ],
   },
   {

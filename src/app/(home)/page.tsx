@@ -534,7 +534,7 @@ export default function HomePage() {
                 <span className="text-purple">enterprises choose to scale with.</span>
               </h2>
             </div>
-            <a href="#contact" className="btn btn-primary">
+            <a href="contact" className="btn btn-primary">
               Talk to an expert <ArrowIcon />
             </a>
           </div>

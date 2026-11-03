@@ -218,7 +218,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* ---------- Growth path ---------- */}
+      ---------- Growth path ----------
       <section className={`${styles.section} ${styles.paleSection}`}>
         <div className="container">
           <p className={styles.eyebrow}>YOUR GROWTH</p>

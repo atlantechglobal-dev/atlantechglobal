@@ -202,11 +202,11 @@ export default function HeroScroll() {
                     </p>
 
                     <div className={styles.actions}>
-                        <Link href="/contact-us" className="btn btn-primary">
+                        <Link href="/contact" className="btn btn-primary">
                             Talk to Our Experts ↗
                         </Link>
 
-                        <Link href="/services" className="btn btn-outline">
+                        <Link href="#services" className="btn btn-outline">
                             Explore Our Services
                         </Link>
                     </div>

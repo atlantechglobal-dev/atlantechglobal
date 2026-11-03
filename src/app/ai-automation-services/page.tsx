@@ -7,6 +7,7 @@ import ContactPanel from "./ContactPanel";
 import styles from "./page.module.css";
 import { link } from "fs";
 
+
 export const metadata: Metadata = {
   title: "AI & Automation Services",
   description:
@@ -236,7 +237,7 @@ const faqs: AutomationFaqItem[] = [
         "Improve customer experiences  ",
         "Lower operating costs",
         "Scale operations faster",
-       
+
       ],
     },
 

@@ -402,6 +402,9 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
+  /* filter: brightness(0.8)contrast(0.3) saturate(4); */
+  filter:brightness(1.9) contrast(0.6);
+
 }
 
 .serviceCard:hover img {
@@ -430,7 +433,8 @@
   margin-bottom: 12px;
   font-size: 14px;
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.8);
+  /* color: rgba(255, 255, 255, 0.8);
+   */
 }
 
 .serviceLink {
@@ -439,7 +443,8 @@
   gap: 6px;
   font-size: 14px;
   font-weight: 600;
-  color: #c4a5fb;
+  /* color: #c4a5fb; */
+    color: hwb(263 82% 3%);
 }
 
 .serviceLink:hover {

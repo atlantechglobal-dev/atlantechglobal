@@ -1,29 +1,55 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useId, useState } from "react";
 import { submitLead } from "@/lib/submitLead";
+import { DEFAULT_COUNTRY } from "@/lib/phoneDefaults";
+import HumanCheck from "@/components/forms/HumanCheck";
+import PhoneField, { type PhoneValue } from "@/components/forms/PhoneField";
 import styles from "./page.module.css";
 
 type Status = "idle" | "loading" | "success" | "error";
 
+const EMPTY_PHONE: PhoneValue = { iso: DEFAULT_COUNTRY, national: "" };
+
 export default function ContactPanel({ source }: { source: string }) {
   const [status, setStatus] = useState<Status>("idle");
+  const [phone, setPhone] = useState<PhoneValue>(EMPTY_PHONE);
+  const [human, setHuman] = useState(false);
+  const [humanError, setHumanError] = useState(false);
+  const [captchaKey, setCaptchaKey] = useState(0);
+  const phoneId = useId();
+  const humanId = useId();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
+
+    if (!human) {
+      setHumanError(true);
+      return;
+    }
+    setHumanError(false);
     setStatus("loading");
-    const ok = await submitLead(new FormData(form), `Consultation request — ${source}`);
+
+    const data = new FormData(form);
+    if (phone.national) {
+      const lib = await import("@/lib/phone");
+      const dial = lib.getCountryList().find((c) => c.iso === phone.iso)?.dial ?? "";
+      data.set("phone", `${dial} ${phone.national}`.trim());
+    }
+
+    const ok = await submitLead(data, `Consultation request — ${source}`);
     setStatus(ok ? "success" : "error");
-    if (ok) form.reset();
+    if (ok) {
+      form.reset();
+      setPhone(EMPTY_PHONE);
+      setHuman(false);
+      setCaptchaKey((k) => k + 1); // captcha ko naya bana deta hai
+    }
   }
 
   return (
-    <form
-      className={styles.form}
-      onSubmit={handleSubmit}
-      method="POST"
-    >
+    <form className={styles.form} onSubmit={handleSubmit} method="POST">
       <input type="checkbox" name="botcheck" hidden tabIndex={-1} autoComplete="off" />
       <div className={styles.fieldRow}>
         <label className={styles.field}>
@@ -39,6 +65,9 @@ export default function ContactPanel({ source }: { source: string }) {
         Work email
         <input type="email" name="email" placeholder="jane.doe@enterprise.com" autoComplete="email" required />
       </label>
+
+      <PhoneField id={phoneId} value={phone} onChange={setPhone} onBlur={() => { }} />
+
       <label className={styles.field}>
         Company name
         <input type="text" name="company" placeholder="Global Logistics Corp" autoComplete="organization" required />
@@ -51,6 +80,18 @@ export default function ContactPanel({ source }: { source: string }) {
           placeholder="Tell us about your current operational challenges, automation targets, or data platforms..."
         />
       </label>
+
+      <HumanCheck
+        key={captchaKey}
+        id={humanId}
+        checked={human}
+        onChange={(v) => {
+          setHuman(v);
+          if (v) setHumanError(false);
+        }}
+        message={humanError ? "Please complete the security verification." : undefined}
+      />
+
       <button type="submit" className={styles.submitBtn} disabled={status === "loading"}>
         {status === "loading" ? "Sending..." : "Start AI Automation"}
       </button>
@@ -67,3 +108,86 @@ export default function ContactPanel({ source }: { source: string }) {
     </form>
   );
 }
+
+
+  // Old Code 
+
+  
+// "use client";
+
+// import { FormEvent, useState } from "react";
+// import { submitLead } from "@/lib/submitLead";
+// import styles from "./page.module.css";
+
+// import { ArrowIcon } from "@/lib/icons";
+// import type { FieldSpec } from "@/lib/validation";
+// import FieldError from "@/components/forms/FieldError";
+// import HumanCheck from "@/components/forms/HumanCheck";
+// import PhoneField from "@/components/forms/PhoneField";
+// import { useLeadForm } from "@/components/forms/useLeadForm";
+
+
+
+// type Status = "idle" | "loading" | "success" | "error";
+
+// export default function ContactPanel({ source }: { source: string }) {
+//   const [status, setStatus] = useState<Status>("idle");
+
+//   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+//     e.preventDefault();
+//     const form = e.currentTarget;
+//     setStatus("loading");
+//     const ok = await submitLead(new FormData(form), `Consultation request — ${source}`);
+//     setStatus(ok ? "success" : "error");
+//     if (ok) form.reset();
+//   }
+
+//   return (
+//     <form
+//       className={styles.form}
+//       onSubmit={handleSubmit}
+//       method="POST"
+//     >
+//       <input type="checkbox" name="botcheck" hidden tabIndex={-1} autoComplete="off" />
+//       <div className={styles.fieldRow}>
+//         <label className={styles.field}>
+//           First name
+//           <input type="text" name="first_name" placeholder="Jane" autoComplete="given-name" required />
+//         </label>
+//         <label className={styles.field}>
+//           Last name
+//           <input type="text" name="last_name" placeholder="Doe" autoComplete="family-name" required />
+//         </label>
+//       </div>
+//       <label className={styles.field}>
+//         Work email
+//         <input type="email" name="email" placeholder="jane.doe@enterprise.com" autoComplete="email" required />
+//       </label>
+//       <label className={styles.field}>
+//         Company name
+//         <input type="text" name="company" placeholder="Global Logistics Corp" autoComplete="organization" required />
+//       </label>
+//       <label className={styles.field}>
+//         How can we help?
+//         <textarea
+//           name="message"
+//           rows={4}
+//           placeholder="Tell us about your current operational challenges, automation targets, or data platforms..."
+//         />
+//       </label>
+//       <button type="submit" className={styles.submitBtn} disabled={status === "loading"}>
+//         {status === "loading" ? "Sending..." : "Start AI Automation"}
+//       </button>
+//       {status === "success" && (
+//         <p className="form-status success" role="status">
+//           Thanks! Our team will reach out within 2 hours.
+//         </p>
+//       )}
+//       {status === "error" && (
+//         <p className="form-status error" role="alert">
+//           Something went wrong. Please email us at hello@atlantechglobal.com.
+//         </p>
+//       )}
+//     </form>
+//   );
+// }

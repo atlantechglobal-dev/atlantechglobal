@@ -440,13 +440,13 @@ export default function DigitalTransformationPage() {
             <h2 className={styles.title}>
               Digital Transformation{" "}
               <span className={styles.gradText}>
-                Solutions for Business Growth
+                Services for Business Growth
               </span>
             </h2>
             <p className={styles.body}>
               {/* Discover digital transformation solutions that streamline business
               processes, modernize applications, and drive innovation. */}
-              Accelerate business growth through intelligent digital transformation and enterprise innovation. 
+              Accelerate business growth through intelligent digital transformation and enterprise innovation.
             </p>
           </div>
 
