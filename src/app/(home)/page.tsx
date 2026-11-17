@@ -279,7 +279,7 @@ export default function HomePage() {
 
       <HeroScroll />
 
-      <section className={styles.trusted} aria-labelledby="trusted-title">
+      {/* <section className={styles.trusted} aria-labelledby="trusted-title">
         <h2 id="trusted-title" className={styles.trustedTitle}>
           Trusted by Global Businesses Worldwide for Future-Ready Enterprise IT Solutions
         </h2>
@@ -295,7 +295,7 @@ export default function HomePage() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       <section className={styles.section} id="about">
         <div className={`container ${styles.aboutIntro}`}>
