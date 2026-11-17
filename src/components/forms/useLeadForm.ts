@@ -21,6 +21,11 @@ type Options = {
   humanCheck?: boolean;
   /** Identifies the page or form the lead came from. */
   source: string;
+  /**
+   * Sends somewhere other than the lead endpoint (e.g. a job application to the ERP).
+   * Resolve true when accepted, or an error message to show the visitor.
+   */
+  send?: (payload: LeadPayload, form: HTMLFormElement) => Promise<true | string>;
 };
 
 const HUMAN_ERROR = "Please confirm that you are not a robot.";
@@ -29,8 +34,9 @@ const HUMAN_ERROR = "Please confirm that you are not a robot.";
  * Shared behaviour for every lead form: field validation (on blur and on submit), phone
  * normalisation, the human check and submission through the server endpoint.
  */
-export function useLeadForm({ schema, phone, subject, source, humanCheck = true }: Options) {
+export function useLeadForm({ schema, phone, subject, source, humanCheck = true, send }: Options) {
   const [status, setStatus] = useState<Status>("idle");
+  const [serverError, setServerError] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [phoneValue, setPhoneValue] = useState<PhoneState>({ iso: DEFAULT_COUNTRY, national: "" });
   const [human, setHuman] = useState(false);
@@ -122,7 +128,10 @@ export function useLeadForm({ schema, phone, subject, source, humanCheck = true 
     payload.elapsed_ms = String(Date.now() - openedAt.current);
 
     setStatus("loading");
-    const ok = await submitLead(payload);
+    setServerError("");
+    const result = send ? await send(payload, form) : await submitLead(payload);
+    const ok = result === true;
+    if (typeof result === "string") setServerError(result);
     setStatus(ok ? "success" : "error");
     if (ok) {
       form.reset();
@@ -137,6 +146,8 @@ export function useLeadForm({ schema, phone, subject, source, humanCheck = true 
   return {
     status,
     setStatus,
+    /** Message from `send` when it refused the submission (empty otherwise). */
+    serverError,
     errors,
     /** Accessibility attributes for an input, set only while it has an error. */
     fieldProps: (name: string) => (errors[name] ? { "aria-invalid": true, "aria-describedby": errorId(name) } : {}),

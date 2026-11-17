@@ -1,0 +1,127 @@
+/* Open roles read from the ERP: loading / empty notice, role dialog and the CV field. */
+.notice {
+  display: grid;
+  justify-items: start;
+  gap: 18px;
+  margin-top: clamp(32px, 5vw, 48px);
+  padding: 28px 32px;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 2px 10px -6px rgba(60, 30, 140, 0.2);
+  font-size: 15px;
+  color: var(--cr-text);
+}
+
+.dialog {
+  width: min(720px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 24px 60px -20px rgba(30, 15, 80, 0.45);
+  color: var(--ink);
+}
+
+.dialog::backdrop {
+  background: rgba(13, 11, 20, 0.55);
+}
+
+.dialogBody {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  padding: clamp(22px, 4vw, 36px);
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--gray-100);
+  font-size: 22px;
+  line-height: 1;
+  color: var(--gray-700);
+  cursor: pointer;
+}
+
+.close:hover {
+  background: var(--purple-pale);
+  color: var(--purple);
+}
+
+.dialogTitle {
+  padding-right: 40px;
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--cr-ink, var(--ink));
+}
+
+.description {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--gray-700);
+}
+
+.description ul,
+.description ol {
+  padding-left: 1.3em;
+}
+
+.description ul {
+  list-style: disc;
+}
+
+.description ol {
+  list-style: decimal;
+}
+
+.description p + p,
+.description p + ul,
+.description ul + p {
+  margin-top: 10px;
+}
+
+.description img {
+  max-width: 100%;
+  height: auto;
+}
+
+.applyTitle {
+  margin-top: 8px;
+  padding-top: 18px;
+  border-top: 1px solid var(--gray-300);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.cvField {
+  display: grid;
+  gap: 8px;
+  padding: 14px 20px;
+  border: 1px dashed var(--gray-300);
+  border-radius: 22px;
+  background: #faf9ff;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.cvField input[type="file"] {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 14px;
+}
+
+@media (max-width: 560px) {
+  .notice {
+    padding: 22px 20px;
+  }
+}

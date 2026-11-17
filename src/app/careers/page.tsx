@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { asset } from "@/lib/asset";
 import { ArrowIcon, GlobeIcon } from "@/lib/icons";
+import OpenRoles from "./OpenRoles";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -37,23 +38,7 @@ const growth = [
   { tag: "Build", title: "Create work that matters.", desc: "Leave lasting footprints on international enterprise systems and product lines." },
 ];
 
-const roles = [
-  { team: "Engineering", type: "Full Time", location: "Pune / Hybrid", title: "Full Stack Developer", detail: "Tech Stack: React • Next.js • Python • APIs" },
-  { team: "Sales & Growth", type: "Full Time", location: "Pune / Remote", title: "Business Development Executive", detail: "Focus: B2B Sales • CRM • Lead Generation" },
-  { team: "Design", type: "Full Time", location: "Pune / Hybrid", title: "UI/UX Designer", detail: "Expertise: Figma • UX • Prototyping" },
-  { team: "Quality", type: "Full Time", location: "Pune / Hybrid", title: "QA Engineer", detail: "Discipline: API Testing • Automation • QA" },
-];
-
 const pad = (n: number) => String(n).padStart(2, "0");
-
-function PinIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" />
-      <circle cx="12" cy="10" r="2.3" />
-    </svg>
-  );
-}
 
 export default function CareersPage() {
   return (
@@ -218,7 +203,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      ---------- Growth path ----------
+      {/* ---------- Growth path ---------- */}
       <section className={`${styles.section} ${styles.paleSection}`}>
         <div className="container">
           <p className={styles.eyebrow}>YOUR GROWTH</p>
@@ -251,29 +236,8 @@ export default function CareersPage() {
             We&apos;re looking for curious minds, builders and problem solvers who want to work at the intersection of
             technology and business.
           </p>
-          <ul className={styles.roles}>
-            {roles.map((r) => (
-              <li className={styles.roleCard} key={r.title}>
-                <div className={styles.roleMain}>
-                  <p className={styles.roleMeta}>
-                    <span className={styles.roleTeam}>{r.team.toUpperCase()}</span>
-                    <span className={styles.roleDot} aria-hidden="true" />
-                    <span className={styles.roleType}>{r.type}</span>
-                    <span className={styles.roleDot} aria-hidden="true" />
-                    <span className={styles.roleLoc}>
-                      <PinIcon />
-                      {r.location}
-                    </span>
-                  </p>
-                  <h3>{r.title}</h3>
-                  <p className={styles.roleDetail}>{r.detail}</p>
-                </div>
-                <a href={mailto(`Application: ${r.title}`)} className={styles.primaryBtn}>
-                  VIEW ROLE <ArrowIcon />
-                </a>
-              </li>
-            ))}
-          </ul>
+          {/* Live from the ERP: HR publishes Job Openings there; applications become Job Applicants. */}
+          <OpenRoles resumeHref={mailto("Resume submission")} />
         </div>
       </section>
 

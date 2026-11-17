@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const basePath = "/agbeta3";
+const basePath = "";
 
 /**
  * Two deployment modes:
