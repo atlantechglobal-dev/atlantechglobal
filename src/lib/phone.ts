@@ -24,7 +24,8 @@ export type PhoneRule = {
   example: string;
 };
 
-const PRIORITY: CountryCode[] = ["IN", "KW", "AE", "SA", "QA", "OM", "BH", "US", "GB", "CA", "AU", "SG"];
+// const PRIORITY: CountryCode[] = ["IN", "KW", "AE", "SA", "QA", "OM", "BH", "US", "GB", "CA", "AU", "SG"];
+const PRIORITY: CountryCode[] = ["US", "IN", "KW", "AE", "SA", "QA", "OM", "BH", "GB", "CA", "AU", "SG"];
 const EXCLUDED = new Set<string>(["AC", "TA"]);
 
 let countryCache: Country[] | undefined;

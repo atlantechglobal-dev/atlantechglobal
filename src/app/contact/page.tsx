@@ -30,7 +30,7 @@ const contactDetails = [
       </>
     ),
   },
-  { label: "+91 73871 40440", href: "tel:+917387140440", icon: phoneIcon },
+  { label: "+1 74056  10750", href: "tel:+1 7405610750", icon: phoneIcon },
   { label: "India", icon: pinIcon },
   { label: "+965 6685 8781", href: "tel:+96566858781", icon: phoneIcon },
   { label: "Kuwait", icon: pinIcon },

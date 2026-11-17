@@ -66,6 +66,14 @@
   gap: 22px;
 }
 
+/* .infoList li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  word-break: break-word;
+} */
 .infoList li {
   display: flex;
   align-items: center;
@@ -73,6 +81,9 @@
   font-size: 15px;
   font-weight: 600;
   word-break: break-word;
+  white-space: pre-wrap;
+  word-spacing: 3px;
+  /* ye line add karo */
 }
 
 .infoList a:hover {

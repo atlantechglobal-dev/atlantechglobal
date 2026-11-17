@@ -19,8 +19,8 @@ type Props = {
   required?: boolean;
 };
 
-const FALLBACK_COUNTRY: Country = { iso: DEFAULT_COUNTRY, name: "India", dial: "+91" };
-
+// const FALLBACK_COUNTRY: Country = { iso: DEFAULT_COUNTRY, name: "India", dial: "+91" };
+const FALLBACK_COUNTRY: Country = { iso: DEFAULT_COUNTRY, name: "United States", dial: "+1" };
 function Flag({ iso }: { iso: string }) {
   const code = iso.toLowerCase();
   return (
