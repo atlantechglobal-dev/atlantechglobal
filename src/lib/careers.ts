@@ -7,6 +7,10 @@ export type Job = {
   department: string;
   type: string;
   location: string;
+  /** "Hybrid", "Remote" or empty (office). */
+  work_mode: string;
+  /** One short line under the title, e.g. "Tech Stack: React • Next.js". */
+  highlight: string;
   closes_on: string;
   /** HTML, already cleaned by the ERP. */
   description: string;

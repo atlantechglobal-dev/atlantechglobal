@@ -16,18 +16,29 @@ function PinIcon() {
   );
 }
 
+/** "Pune / Hybrid", "Pune" or just "Remote". */
+function place(job: Job) {
+  return [job.location, job.work_mode].filter(Boolean).join(" / ");
+}
+
+/** Highlight, salary and closing date on one line, e.g. "Tech Stack: React · ₹25,000 – ₹40,000 per month". */
+function Detail({ job }: { job: Job }) {
+  const parts = [job.highlight, job.salary ? formatSalary(job.salary) : "", job.closes_on ? `Apply by ${formatDate(job.closes_on)}` : ""].filter(Boolean);
+  return parts.length ? <p className={pageStyles.roleDetail}>{parts.join(" · ")}</p> : null;
+}
+
 function JobMeta({ job }: { job: Job }) {
   return (
     <p className={pageStyles.roleMeta}>
       {job.department && <span className={pageStyles.roleTeam}>{job.department.toUpperCase()}</span>}
       {job.department && job.type && <span className={pageStyles.roleDot} aria-hidden="true" />}
       {job.type && <span className={pageStyles.roleType}>{job.type}</span>}
-      {job.location && (
+      {place(job) && (
         <>
           <span className={pageStyles.roleDot} aria-hidden="true" />
           <span className={pageStyles.roleLoc}>
             <PinIcon />
-            {job.location}
+            {place(job)}
           </span>
         </>
       )}
@@ -81,11 +92,7 @@ export default function OpenRoles({ resumeHref }: { resumeHref: string }) {
             <div className={pageStyles.roleMain}>
               <JobMeta job={job} />
               <h3>{job.title}</h3>
-              <p className={pageStyles.roleDetail}>
-                {job.salary ? formatSalary(job.salary) : null}
-                {job.salary && job.closes_on ? " · " : null}
-                {job.closes_on ? `Apply by ${formatDate(job.closes_on)}` : null}
-              </p>
+              <Detail job={job} />
             </div>
             <button type="button" className={pageStyles.primaryBtn} onClick={() => setOpen(job)}>
               VIEW ROLE <ArrowIcon />
@@ -104,13 +111,7 @@ export default function OpenRoles({ resumeHref }: { resumeHref: string }) {
             <h3 id="role-title" className={styles.dialogTitle}>
               {open.title}
             </h3>
-            {(open.salary || open.closes_on) && (
-              <p className={pageStyles.roleDetail}>
-                {open.salary ? formatSalary(open.salary) : null}
-                {open.salary && open.closes_on ? " · " : null}
-                {open.closes_on ? `Apply by ${formatDate(open.closes_on)}` : null}
-              </p>
-            )}
+            <Detail job={open} />
             {open.description && (
               // Cleaned by the ERP before it is sent (scripts and event handlers removed).
               <div className={styles.description} dangerouslySetInnerHTML={{ __html: open.description }} />
