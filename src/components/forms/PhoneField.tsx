@@ -19,8 +19,13 @@ type Props = {
   required?: boolean;
 };
 
-// const FALLBACK_COUNTRY: Country = { iso: DEFAULT_COUNTRY, name: "India", dial: "+91" };
-const FALLBACK_COUNTRY: Country = { iso: DEFAULT_COUNTRY, name: "United States", dial: "+1" };
+// Shown until the country list loads, so a form's own default (e.g. India on careers) shows right away.
+const FALLBACKS: Partial<Record<CountryCode, Country>> = {
+  US: { iso: "US", name: "United States", dial: "+1" },
+  IN: { iso: "IN", name: "India", dial: "+91" },
+};
+const FALLBACK_COUNTRY: Country = FALLBACKS[DEFAULT_COUNTRY] ?? { iso: "US", name: "United States", dial: "+1" };
+const fallbackFor = (iso: CountryCode): Country => FALLBACKS[iso] ?? FALLBACK_COUNTRY;
 function Flag({ iso }: { iso: string }) {
   const code = iso.toLowerCase();
   return (
@@ -71,8 +76,8 @@ export default function PhoneField({ value, onChange, onBlur, message, id, requi
     return () => document.removeEventListener("pointerdown", close);
   }, [open]);
 
-  const countries = useMemo(() => (lib ? lib.getCountryList() : [FALLBACK_COUNTRY]), [lib]);
-  const selected = countries.find((country) => country.iso === value.iso) ?? FALLBACK_COUNTRY;
+  const countries = useMemo(() => (lib ? lib.getCountryList() : [fallbackFor(value.iso)]), [lib, value.iso]);
+  const selected = countries.find((country) => country.iso === value.iso) ?? fallbackFor(value.iso);
   const rule = lib?.getPhoneRule(value.iso);
 
   const filtered = useMemo(() => {

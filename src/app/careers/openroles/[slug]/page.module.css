@@ -1,0 +1,125 @@
+/* A single job's page: back link, then the job details card with the application form card below it.
+   Uses the full careers container, so the left and right edges line up with the header. */
+
+/* Less space above than the careers sections, so the job starts close to the header. */
+.section {
+  padding: clamp(20px, 3vw, 36px) 0 clamp(56px, 8vw, 96px);
+  /* 100vw includes the scrollbar, 100% does not: the difference is the scrollbar's width
+     (about 15px on Windows, 0 on phones, tablets and macOS). Adding it on the left centres
+     the cards on the screen itself, and the section's own background fills that space. */
+  padding-left: calc(100vw - 100%);
+}
+
+/* Cards grow with the screen: 75% of its width, never narrower than 960px (unless the screen
+   itself is) and never wider than 1200px. Phones and tablets get the full width minus the gutter.
+   max-width includes the container's side padding (gutter). */
+.section .inner:global(.container) {
+  max-width: calc(clamp(960px, 75vw, 1200px) + 2 * var(--gutter));
+}
+
+/* Top of the job card: department / type / place on the left, "All open roles" on the right. */
+.topRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+}
+
+.topRow > p {
+  margin-bottom: 0; /* the meta line's own spacing would push it off the button's centre line */
+}
+
+/* Same look as the header's Contact Us button. */
+.card .allRoles {
+  justify-self: auto;
+  background: linear-gradient(135deg, #7c5cf6, #a084f8);
+  box-shadow: 0 12px 28px rgba(124, 92, 246, 0.38);
+  color: #fff;
+}
+
+/* Job details first, application form below it; both cards share the same full width. */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+
+.card {
+  display: grid;
+  justify-items: stretch;
+  gap: 14px;
+  padding: clamp(22px, 3.5vw, 40px);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 10px -6px rgba(60, 30, 140, 0.2);
+}
+
+.card > a {
+  justify-self: start;
+}
+
+.title {
+  font-size: clamp(26px, 3.4vw, 38px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--cr-ink);
+}
+
+/* The ERP's description: a divider above it and calmer headings than the raw editor output. */
+.description {
+  margin-top: 8px;
+  padding-top: 22px;
+  border-top: 1px solid var(--cr-line);
+}
+
+.description :global(h1) {
+  display: none; /* repeats the job title shown above */
+}
+
+.description :global(h2),
+.description :global(h3) {
+  margin: 22px 0 10px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--cr-ink);
+}
+
+.description :global(li) + :global(li) {
+  margin-top: 6px;
+}
+
+/* Form card, marked with the brand colour along the top. */
+.apply {
+  border-top: 4px solid #7c3aed;
+}
+
+.applyTitle {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--cr-ink);
+}
+
+.applyNote {
+  margin-top: -6px;
+  font-size: 14px;
+  color: var(--cr-text);
+}
+
+/* "No longer open" message: short, so it sits centred in a narrower card. */
+.closed {
+  max-width: 640px;
+  margin-inline: auto;
+  justify-items: center;
+  text-align: center;
+}
+
+.closed > a {
+  justify-self: center;
+}
+
+.closed :global(p) {
+  margin-inline: auto;
+}

@@ -31,7 +31,11 @@ const nextConfig: NextConfig = {
   },
   ...(staticExport
     ? { output: "export" as const }
-    : { headers: async () => [{ source: "/:path*", headers: securityHeaders }] }),
+    : {
+        headers: async () => [{ source: "/:path*", headers: securityHeaders }],
+        // /careers/openroles/ has no page; send it to the roles list. Static hosting does this in public/.htaccess.
+        redirects: async () => [{ source: "/careers/openroles", destination: "/careers/#openroles", permanent: false }],
+      }),
 };
 
 export default nextConfig;

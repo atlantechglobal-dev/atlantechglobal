@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { asset } from "@/lib/asset";
 import { ArrowIcon, GlobeIcon } from "@/lib/icons";
+import { fetchJobs, withSlugs } from "@/lib/careers";
 import OpenRoles from "./OpenRoles";
 import styles from "./page.module.css";
 
@@ -40,7 +41,10 @@ const growth = [
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-export default function CareersPage() {
+export default async function CareersPage() {
+  // Read on the server at build time (no CORS there), so the roles show even before the browser's live check.
+  const jobs = await fetchJobs();
+
   return (
     <div className={styles.page}>
       {/* ---------- Hero ---------- */}
@@ -64,7 +68,7 @@ export default function CareersPage() {
                 radical ownership, and intentional human balance.
               </p>
               <div className={styles.heroActions}>
-                <a href="#openings" className={styles.primaryBtn}>
+                <a href="#openroles" className={styles.primaryBtn}>
                   EXPLORE OPEN ROLES <ArrowIcon />
                 </a>
                 <a href={mailto("Resume submission")} className={styles.lightBtn}>
@@ -228,7 +232,7 @@ export default function CareersPage() {
       </section>
 
       {/* ---------- Open roles ---------- */}
-      <section className={`${styles.section} ${styles.tintSection}`} id="openings">
+      <section className={`${styles.section} ${styles.tintSection}`} id="openroles">
         <div className="container">
           <p className={styles.eyebrow}>CURRENT OPPORTUNITIES</p>
           <h2 className={styles.title}>Find your next opportunity.</h2>
@@ -237,7 +241,7 @@ export default function CareersPage() {
             technology and business.
           </p>
           {/* Live from the ERP: HR publishes Job Openings there; applications become Job Applicants. */}
-          <OpenRoles resumeHref={mailto("Resume submission")} />
+          <OpenRoles resumeHref={mailto("Resume submission")} initialJobs={jobs ? withSlugs(jobs) : undefined} />
         </div>
       </section>
 

@@ -17,7 +17,32 @@ export type Job = {
   salary?: { from: number; to: number; currency: string; per: string };
 };
 
+/** A job plus the URL segment of its own page, e.g. "business-development-executive". */
+export type JobWithSlug = Job & { slug: string };
+
 const API = `${ERP_URL}/api/method/raven_desk.careers`;
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/** Gives every job a URL slug from its title; two jobs with the same title also get their ERP id. */
+export function withSlugs(jobs: Job[]): JobWithSlug[] {
+  const counts = new Map<string, number>();
+  for (const job of jobs) counts.set(slugify(job.title), (counts.get(slugify(job.title)) ?? 0) + 1);
+  return jobs.map((job) => {
+    const base = slugify(job.title) || slugify(job.id);
+    return { ...job, slug: (counts.get(base) ?? 0) > 1 ? `${base}-${slugify(job.id)}` : base };
+  });
+}
+
+/** Path of a job's own page (trailing slash to match the site's URL style). */
+export const jobPath = (job: JobWithSlug) => `/careers/openroles/${job.slug}/`;
 const GENERIC_ERROR = "We could not send your application. Please try again, or email hello@atlantechglobal.com.";
 
 /** Open jobs from the ERP, or null when the ERP could not be reached. */

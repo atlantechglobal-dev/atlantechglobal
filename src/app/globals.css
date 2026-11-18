@@ -37,6 +37,13 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* Hide the page scrollbar (wheel, touchpad, keys and touch still scroll) so it takes no room
+     and every page is centred on the screen itself, on Windows as on phones and macOS. */
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none; /* older Chrome/Edge/Safari that ignore scrollbar-width */
 }
 
 body {

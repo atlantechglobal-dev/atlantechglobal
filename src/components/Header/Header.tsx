@@ -365,9 +365,9 @@ export default function Header() {
           </nav>
 
           <div className={styles.actions}>
-            <button type="button" className={styles.region} aria-label="Region: India">
+            <button type="button" className={styles.region} aria-label="Region: Global">
               <GlobeIcon />
-              <span>India</span>
+              <span>Global</span>
               <ChevronIcon />
             </button>
             <Link href="/contact" className={cx("btn btn-primary btn-small", styles.cta)} onClick={closeAll}>
@@ -487,7 +487,7 @@ export default function Header() {
         <div className={styles.drawerFooter}>
           <span className={styles.drawerRegion}>
             <GlobeIcon />
-            Region: India
+            Region: Global
           </span>
           <Link href="/contact" className="btn btn-primary full-width" onClick={closeAll}>
             Contact Us <ArrowIcon />

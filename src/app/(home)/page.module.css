@@ -26,10 +26,10 @@
 .heroStage {
   position: sticky;
   top: 85px;
-  width: calc(100% - 0.5rem);
+  /* Same gap on both sides on every screen (was only on the left). */
+  margin-inline: 0.5rem;
   height: calc(100svh - 10px);
   min-height: 500px;
-  margin-left: 0.5rem;
   overflow: hidden;
   border-radius: 20px;
   /* background: var(--gray-700); */
@@ -42,17 +42,15 @@
 
 .heroVideo {
   position: absolute;
-  inset: 0;
-  width: 99.4%;
-  height: 98.5%;
+  /* Equal 0.3rem frame on all four sides, whatever the screen width. */
+  inset: 0.3rem;
+  width: calc(100% - 0.6rem);
+  height: calc(100% - 0.6rem);
   object-fit: cover;
   object-position: center;
   transform: translateZ(0);
   backface-visibility: hidden;
   pointer-events: none;
-  margin-top: 0.3rem;
-  margin-left: 0.3rem;
-  margin-right: 0.3rem;
   border-radius: 15px;
 }
 
@@ -1719,20 +1717,14 @@
       align-items: center;
       justify-content: center;
       top: 45px;
-      width: calc(100% - 1.2rem);
+      margin-inline: 0.6rem;
       height: calc(100svh - 45px);
-      margin-left: 0.6rem;
 
     }
   }
 
 
 
-  @media(max-width:600px) {
-    .heroVideo {
-      width: 97.5%;
-    }
-  }
 
 
 

@@ -2,6 +2,12 @@ Options -MultiViews -Indexes
 DirectoryIndex index.html
 ErrorDocument 404 /404.html
 
+# /careers/openroles/ has no page; send it to the roles list on the careers page (NE keeps the # as is).
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^careers/openroles/?$ /careers/#openroles [R=302,NE,L]
+</IfModule>
+
 <IfModule mod_headers.c>
   <FilesMatch "\.(js|css|woff2)$">
     Header set Cache-Control "public, max-age=31536000, immutable"

@@ -1,4 +1,4 @@
-/* Open roles read from the ERP: loading / empty notice, role dialog and the CV field. */
+/* Open roles read from the ERP: loading / empty notice, job description and the CV field. */
 .notice {
   display: grid;
   justify-items: start;
@@ -10,57 +10,6 @@
   box-shadow: 0 2px 10px -6px rgba(60, 30, 140, 0.2);
   font-size: 15px;
   color: var(--cr-text);
-}
-
-.dialog {
-  width: min(720px, calc(100vw - 32px));
-  max-height: calc(100dvh - 32px);
-  margin: auto;
-  padding: 0;
-  border: 0;
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 24px 60px -20px rgba(30, 15, 80, 0.45);
-  color: var(--ink);
-}
-
-.dialog::backdrop {
-  background: rgba(13, 11, 20, 0.55);
-}
-
-.dialogBody {
-  position: relative;
-  display: grid;
-  gap: 14px;
-  padding: clamp(22px, 4vw, 36px);
-}
-
-.close {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  width: 36px;
-  height: 36px;
-  border: 0;
-  border-radius: 50%;
-  background: var(--gray-100);
-  font-size: 22px;
-  line-height: 1;
-  color: var(--gray-700);
-  cursor: pointer;
-}
-
-.close:hover {
-  background: var(--purple-pale);
-  color: var(--purple);
-}
-
-.dialogTitle {
-  padding-right: 40px;
-  font-size: clamp(22px, 3vw, 28px);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--cr-ink, var(--ink));
 }
 
 .description {

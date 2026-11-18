@@ -13,8 +13,11 @@ export type PhoneState = { iso: CountryCode; national: string };
 type Options = {
   /** Validation rules for the text fields, keyed by input name. */
   schema: Record<string, FieldSpec>;
-  /** Set when the form has a phone field; `required` controls whether it may be left empty. */
-  phone?: { required: boolean };
+  /**
+   * Set when the form has a phone field; `required` controls whether it may be left empty.
+   * `defaultCountry` overrides the site-wide default for this form only.
+   */
+  phone?: { required: boolean; defaultCountry?: CountryCode };
   /** Builds the email subject at submit time (it can depend on form mode). */
   subject: () => string;
   /** Set to false for forms that skip the "I'm not a robot" checkbox (e.g. the footer newsletter). */
@@ -38,7 +41,7 @@ export function useLeadForm({ schema, phone, subject, source, humanCheck = true,
   const [status, setStatus] = useState<Status>("idle");
   const [serverError, setServerError] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [phoneValue, setPhoneValue] = useState<PhoneState>({ iso: DEFAULT_COUNTRY, national: "" });
+  const [phoneValue, setPhoneValue] = useState<PhoneState>({ iso: phone?.defaultCountry ?? DEFAULT_COUNTRY, national: "" });
   const [human, setHuman] = useState(false);
   const openedAt = useRef(0);
   const uid = useId();

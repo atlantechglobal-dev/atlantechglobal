@@ -40,7 +40,8 @@ export default function ApplyForm({ job }: { job: Job }) {
 
   const form = useLeadForm({
     schema: SCHEMA,
-    phone: { required: true },
+    // India by default on job applications only; the other site forms keep the site-wide default.
+    phone: { required: true, defaultCountry: "IN" },
     subject: () => `Job application: ${job.title}`,
     source: "Careers page",
     send,
